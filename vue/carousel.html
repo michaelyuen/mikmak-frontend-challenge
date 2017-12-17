@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js Counter</title>
+    <script src="../lib/vue.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <h1 class="app-title">{{ title }}</h1>
+
+      <div class="app-current-count">
+      </div>
+
+      <div class="app-counter-buttons">
+        <button type="button" name="previous" v-on:click="previous">&lt;</button>
+        <button type="button" name="next" v-on:click="next">&gt;</button>
+      </div>
+
+    </div>
+
+    <script type="text/javascript">
+
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: 'Vue.js Carousel'
+          }
+        },
+        methods: {
+          previous() {
+          },
+          next() {
+          }
+        }
+      })
+
+    </script>
+
+  </body>
+</html>
