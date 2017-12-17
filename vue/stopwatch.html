@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js Counter</title>
+    <script src="../lib/vue.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <h1 class="app-title">{{ title }}</h1>
+
+      <div class="app-current-count">
+        {{ count }}
+      </div>
+
+      <div class="app-counter-buttons">
+        <button type="button" name="start" v-on:click="start">start</button>
+        <button type="button" name="reset" v-on:click="reset">reset</button>
+      </div>
+
+    </div>
+
+    <script type="text/javascript">
+
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: 'Vue.js Stopwatch',
+            count: 0
+          }
+        },
+        methods: {
+          start() {
+          },
+          reset() {
+          }
+        }
+      })
+
+    </script>
+
+  </body>
+</html>
