@@ -3,7 +3,7 @@
 
   <head>
     <meta charset="utf-8">
-    <title>Vue.js Counter</title>
+    <title>Vue.js Carousel</title>
     <script src="../lib/vue.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
   </head>
@@ -14,17 +14,52 @@
 
       <h1 class="app-title">{{ title }}</h1>
 
-      <div class="app-current-count">
-      </div>
-
-      <div class="app-counter-buttons">
-        <button type="button" name="previous" v-on:click="previous">&lt;</button>
-        <button type="button" name="next" v-on:click="next">&gt;</button>
-      </div>
+      <carousel></carousel>
 
     </div>
 
     <script type="text/javascript">
+
+      const Carousel = {
+        template: `
+          <div>
+              <img v-bind:src="getActiveSlide()">
+
+              <div class="app-counter-buttons">
+                <button type="button" name="previous" v-on:click="previous">&lt;</button>
+                <button type="button" name="next" v-on:click="next">&gt;</button>
+              </div>
+          </div>
+        `,
+        data: function() {
+          return {
+            // TODO: data source for slides should be external to the Carousel component
+            slides: [
+              '../images/ny1.jpg',
+              '../images/ny2.jpg',
+              '../images/ny3.jpg',
+              '../images/ny4.jpg',
+              '../images/ny5.jpg'
+            ],
+            activeSlide: 0
+          }
+        },
+        methods: {
+          getActiveSlide() {
+            return this.slides[this.activeSlide];
+          },
+          previous() {
+            this.activeSlide--;
+            if( this.activeSlide < 0 ) {
+              this.activeSlide = this.slides.length -1;
+            }
+            console.log(this.activeSlide);
+          },
+          next() {
+            this.activeSlide = (++this.activeSlide) % this.slides.length;
+          }
+        }
+      }
 
       new Vue({
         el: '#app',
@@ -33,11 +68,8 @@
             title: 'Vue.js Carousel'
           }
         },
-        methods: {
-          previous() {
-          },
-          next() {
-          }
+        components: {
+          'carousel': Carousel
         }
       })
 
