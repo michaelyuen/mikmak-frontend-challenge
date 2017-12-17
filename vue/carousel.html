@@ -14,11 +14,28 @@
 
       <h1 class="app-title">{{ title }}</h1>
 
-      <carousel></carousel>
+      <carousel v-bind:slides="nyImages"></carousel>
+      <carousel v-bind:slides="animalImages"></carousel>
 
     </div>
 
     <script type="text/javascript">
+
+      const ny = [
+        '../images/ny1.jpg',
+        '../images/ny2.jpg',
+        '../images/ny3.jpg',
+        '../images/ny4.jpg',
+        '../images/ny5.jpg'
+      ];
+
+      const animals = [
+        '../images/animals1.jpg',
+        '../images/animals2.jpg',
+        '../images/animals3.jpg',
+        '../images/animals4.jpg',
+        '../images/animals5.jpg'
+      ];
 
       const Carousel = {
         template: `
@@ -31,16 +48,9 @@
               </div>
           </div>
         `,
+        props: ['slides'],
         data: function() {
           return {
-            // TODO: data source for slides should be external to the Carousel component
-            slides: [
-              '../images/ny1.jpg',
-              '../images/ny2.jpg',
-              '../images/ny3.jpg',
-              '../images/ny4.jpg',
-              '../images/ny5.jpg'
-            ],
             activeSlide: 0
           }
         },
@@ -53,7 +63,6 @@
             if( this.activeSlide < 0 ) {
               this.activeSlide = this.slides.length -1;
             }
-            console.log(this.activeSlide);
           },
           next() {
             this.activeSlide = (++this.activeSlide) % this.slides.length;
@@ -65,7 +74,9 @@
         el: '#app',
         data() {
           return {
-            title: 'Vue.js Carousel'
+            title: 'Vue.js Carousel',
+            nyImages: ny,
+            animalImages: animals
           }
         },
         components: {
