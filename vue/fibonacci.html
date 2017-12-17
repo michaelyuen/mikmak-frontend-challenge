@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js Fibonacci</title>
+    <script src="../lib/vue.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <h1 class="app-title">{{ title }}</h1>
+
+      <fibonacci></fibonacci>
+      <fibonacci></fibonacci>
+
+    </div>
+
+    <script type="text/javascript">
+
+      const Fibonacci = {
+        template: `
+          <div>
+            <div class="app-current-count">
+              {{ current }}
+            </div>
+
+            <div class="app-counter-buttons">
+              <button type="button" name="increment" v-on:click="increment">+</button>
+            </div>
+          </div>
+        `,
+        data: function() {
+          return {
+            previous: 0,
+            current: 1
+          }
+        },
+        methods: {
+          increment() {
+            let tempPrevious = this.previous;
+            this.previous = this.current;
+            this.current += tempPrevious;
+          }
+        }
+      }
+
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: 'Vue.js Fibonacci'
+          }
+        },
+        components: {
+          'fibonacci': Fibonacci
+        }
+      })
+    </script>
+
+  </body>
+</html>

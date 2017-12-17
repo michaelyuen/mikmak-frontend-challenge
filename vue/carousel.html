@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js Carousel</title>
+    <script src="../lib/vue.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <h1 class="app-title">{{ title }}</h1>
+
+      <carousel v-bind:slides="nyImages"></carousel>
+      <carousel v-bind:slides="animalImages"></carousel>
+
+    </div>
+
+    <script type="text/javascript">
+
+      const ny = [
+        '../images/ny1.jpg',
+        '../images/ny2.jpg',
+        '../images/ny3.jpg',
+        '../images/ny4.jpg',
+        '../images/ny5.jpg'
+      ];
+
+      const animals = [
+        '../images/animals1.jpg',
+        '../images/animals2.jpg',
+        '../images/animals3.jpg',
+        '../images/animals4.jpg',
+        '../images/animals5.jpg'
+      ];
+
+      const Carousel = {
+        template: `
+          <div>
+              <img v-bind:src="getActiveSlide()">
+
+              <div class="app-counter-buttons">
+                <button type="button" name="previous" v-on:click="previous">&lt;</button>
+                <button type="button" name="next" v-on:click="next">&gt;</button>
+              </div>
+          </div>
+        `,
+        props: ['slides'],
+        data: function() {
+          return {
+            activeSlide: 0
+          }
+        },
+        methods: {
+          getActiveSlide() {
+            return this.slides[this.activeSlide];
+          },
+          previous() {
+            this.activeSlide--;
+            if( this.activeSlide < 0 ) {
+              this.activeSlide = this.slides.length -1;
+            }
+          },
+          next() {
+            this.activeSlide = (++this.activeSlide) % this.slides.length;
+          }
+        }
+      }
+
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: 'Vue.js Carousel',
+            nyImages: ny,
+            animalImages: animals
+          }
+        },
+        components: {
+          'carousel': Carousel
+        }
+      })
+
+    </script>
+
+  </body>
+</html>

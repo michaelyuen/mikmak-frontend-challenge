@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js Counter</title>
+    <script src="../lib/vue.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <h1 class="app-title">{{ title }}</h1>
+
+      <stopwatch></stopwatch>
+      <stopwatch></stopwatch>
+
+    </div>
+
+    <script type="text/javascript">
+
+      const Stopwatch = {
+        template: `
+          <div>
+            <div class="app-current-count">
+              {{ formatTime(count) }}
+            </div>
+
+            <div class="app-counter-buttons">
+              <button type="button" name="start" v-on:click="toggleStopwatch">{{ startStopLabel }}</button>
+              <button type="button" name="reset" v-on:click="reset">reset</button>
+            </div>
+          </div>
+        `,
+        data: function() {
+          return {
+            startStopLabel: 'start',
+            isStarted: false,
+            count: 0,
+            interval: null
+          }
+        },
+        methods: {
+          toggleStopwatch() {
+            this.isStarted = !this.isStarted;
+            (this.isStarted) ? this.start() : this.stop();
+          },
+          start() {
+            this.startStopLabel = 'stop';
+            this.interval = setInterval(() => this.count++, 10);      
+          },
+          stop() {
+            this.startStopLabel = 'start';
+            clearInterval(this.interval);
+          },
+          reset() {
+            this.isStarted = false;
+            this.stop();
+            this.count = 0;
+          },
+          formatTime(count) {
+            let minutes = this.integerToTwoDigits(parseInt(count/6000));
+            let seconds = this.integerToTwoDigits(parseInt(count/100));
+            let hundreths = this.integerToTwoDigits(count % 100);
+            return `${minutes}:${seconds}:${hundreths}`;
+          },
+          integerToTwoDigits(integer) {
+            return integer.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+          }
+        }
+      }
+
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            title: 'Vue.js Stopwatch'
+          }
+        },
+        components: {
+          'stopwatch': Stopwatch
+        }
+      })
+
+    </script>
+
+  </body>
+</html>
